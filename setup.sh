@@ -17,7 +17,7 @@ gcloud sql databases create mlflow --instance=mlflow-backend
 
 # Service account permissions
 gsutil iam ch 'serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount.com:roles/storage.admin' gs://$PROJECT_ID-mlflow-bucket
-gcloud project add-iam-policy-binding erudite-realm-303906 --member='serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount.com' --role=roles/cloudsql.editor
+gcloud project add-iam-policy-binding $PROJECT_ID --member='serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount.com' --role=roles/cloudsql.editor
 
 # Filling placeholders in startup script
 sed 's/<PROJECT-ID>/'$PROJECT_ID'/' start_mlflow_tracking.sh > start_mlflow_tracking.sh
