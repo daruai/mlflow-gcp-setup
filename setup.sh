@@ -24,10 +24,10 @@ gsutil iam ch 'serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount
 gcloud project add-iam-policy-binding $PROJECT_ID --member='serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount.com' --role=roles/cloudsql.editor
 
 # Filling placeholders in startup script
-sed 's/<PROJECT-ID>/'$PROJECT_ID'/' start_mlflow_tracking.sh > start_mlflow_tracking.sh
-sed 's/<BUCKET-NAME>/'$BUCKET_NAME'/' start_mlflow_tracking.sh > start_mlflow_tracking.sh
-sed 's/<YOUR_ROOT_PASSWORD>/'$CLOUD_SQL_PASS'/' start_mlflow_tracking.sh > start_mlflow_tracking.sh
-sed 's/<SQL-NAME>/'$SQL_NAME'/' start_mlflow_tracking.sh > start_mlflow_tracking.sh
+sed -i 's/<PROJECT-ID>/'$PROJECT_ID'/' start_mlflow_tracking.sh
+sed -i 's/<BUCKET-NAME>/'$BUCKET_NAME'/' start_mlflow_tracking.sh
+sed -i 's/<YOUR_ROOT_PASSWORD>/'$CLOUD_SQL_PASS'/' start_mlflow_tracking.sh
+sed -i 's/<SQL-NAME>/'$SQL_NAME'/' start_mlflow_tracking.sh
 # Moving startup script to bucket
 gsutil cp start_mlflow_tracking.sh $BUCKET_NAME/scripts/start_mlflow_tracking.sh
 
