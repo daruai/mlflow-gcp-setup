@@ -8,7 +8,7 @@ One example of this is allowing all IP ranges to access the external IP of the m
 
 Instructions:
 ```shell 
-sh setup.sh PROJECTID CLOUD_SQL_PASSWORD
+sh setup.sh CLOUD_SQL_PASSWORD
 ```
 
 
