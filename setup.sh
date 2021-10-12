@@ -12,8 +12,10 @@ gcloud iam service-accounts create mlflow-tracking-sa --description="Service Acc
 gsutil mb gs://$PROJECT_ID-mlflow-bucket
 
 # Cloud SQL
-gcloud sql instances create mlflow-backend --tier=db-f1-micro --region=us-central1 --root-password=$CLOUD_SQL_PASS --storage-type=SSD
-gcloud sql databases create mlflow --instance=mlflow-backend
+
+gcloud sql instances create mlflow-backend --tier=db-f1-micro --region=us-central1 --root-password=$CLOUD_SQL_PASS --storage-type=SSD --async
+PENDING_OPERATIONS=$(gcloud sql operations list --instance=mlflow-backend --filter='status!=DONE' --format='value(name)')
+gcloud sql operations wait "${PENDING_OPERATIONS}" --timeout=unlimited
 
 # Service account permissions
 gsutil iam ch 'serviceAccount:mlflow-tracking-sa@$PROJECT_ID.iam.gserviceaccount.com:roles/storage.admin' gs://$PROJECT_ID-mlflow-bucket
