@@ -1,5 +1,6 @@
-PROJECT_ID=$1
-CLOUD_SQL_PASS=$2
+CLOUD_SQL_PASS=$1
+
+export PROJECT_ID=$(gcloud config get-value project)
 
 # Building mlflow image
 docker build -t mlflow:1.14.1 .
